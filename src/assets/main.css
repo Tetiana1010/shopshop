@@ -1,0 +1,46 @@
+@import './base.css';
+
+#app {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  gap: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+h1 {
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.125rem;
+}
+
+h2 {
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.25rem; 
+}
+
+h3 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+h4 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  text-transform: capitalize;
+}
+
