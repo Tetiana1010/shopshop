@@ -1,19 +1,54 @@
 <template>
   <li>
-    <div :style="{ 'background-image': 'url(' + this.product.imagerURL + ')' }" />
-    <h3>{{this.product.title}}</h3>
-    <h4 class="price">{{this.product.price}}</h4>
+    <div :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" />
+    <RouterLink :to="'/shop/' + product.id">
+      <h3>{{product.name}}</h3>
+    </RouterLink>
+    <h4 class="price">{{product.price}}</h4>
+    <!-- <button @click="deleteProduct(product.id)">Delete</button> -->
   </li>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'ProductCard',
-    props: ['product'],
-    created() {
-      console.log(this.product)
-    }
+  import { RouterLink } from 'vue-router';
+  // import axios from 'axios';
+
+  interface Product {
+    name: string;
+    price: number;
+    description: string;
+    image: {
+      type: string;
+      data: number[];
+     } | null;
   }
+
+  export default {
+  name: 'ProductCard',
+  props: {
+    product: {
+      type: Object as () => Product,
+      required: true,
+    },
+    imageUrl: {
+      type: String,
+      default: '',
+    },
+  },
+  // methods: {
+  //   async deleteProduct(productId: string) {
+  //     try {
+  //       const response = await axios.delete(`http://localhost:7777/products/${productId}`);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   },
+  // },
+  components: {
+    RouterLink
+  }
+};
 </script>
 
 <style scoped>
@@ -23,11 +58,15 @@
     gap: 0.5rem;
     border-radius: 0.5rem;
   }
+  li a {
+    color: black;
+  }
   div {
     background-repeat: none;
     align-items: center;
     background-position: center;
     color: var(--light-colors-white-light, #FFF);
+    background-color: #f4f4f4;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0;

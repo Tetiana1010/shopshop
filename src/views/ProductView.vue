@@ -1,7 +1,7 @@
 <template>
   <main>
     <AlertBanner :alertMessage="alertMessage" />
-    <div class="image-gallery">
+    <!-- <div class="image-gallery">
       <img
         v-for="image in productImages"
         :src="image.url"
@@ -10,15 +10,16 @@
         :class="isCurrentImage(image) ? 'current-image' : 'small-image'"
         @click="setCurrentImage(image)"
       />
-    </div>
+    </div>-->
     <div class="product-info">
       <div>
-        <h1>{{ productName }}</h1>
-        <h2 class="price">{{ productPrice }}</h2>
+        <h1>{{ product.name }}</h1>
+        <h2 class="price">{{ product.price }}</h2>
       </div>
-      <div>
+      <!-- <div>
         <p>{{ productReview }}</p>
       </div>
+      
       <div>
         <div class="quantity">
           <button @click="decreaseQuantity">-</button>
@@ -36,82 +37,36 @@
             {{ category + ' ' }}
           </span>
         </p>
-      </div>
+      </div> -->
     </div>
   </main>
 </template>
 
-<script>
+<script lang="ts">
   import AlertBanner from '../components/AlertBanner.vue';
+  import axios from 'axios';
+
+  interface Product {
+    name: string;
+    price: number;
+  }
+
+  interface MyComponentData {
+    alertMessage: string;
+    quantity: number;
+    currentImage: string | null;
+    product: Product
+  }
+
   export default {
     name: 'ProductView',
-    data() {
+    data(): MyComponentData {
       return {
         quantity: 0,
         currentImage: null,
         alertMessage: '',
-        product: {
-          id: 1,
-          name: "Lira Earrings",
-          price: "$ 20,00",
-          description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. Nunc sed porta augue. Morbi porta tempor odio, in molestie diam bibendum sed.',
-          additionalInformation:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. Nunc sed porta augue. Morbi porta tempor odio, in molestie diam bibendum sed.',
-          reviews: [
-            {
-              id: 1,
-              text:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-            },
-            {
-              id: 2,
-              text:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam placerat, augue a volutpat hendrerit, sapien tortor faucibus augue, a maximus elit ex vitae libero. Sed quis mauris eget arcu facilisis consequat sed eu felis. ',
-            },
-          ],
-          categories: ['Fashion', 'Style'],
-          images: [
-            {
-              id: 1,
-              url: './../src/assets/images/store/img-1.png',
-              alt: '',
-            },
-            {
-              id: 2,
-              url: './../src/assets/images/store/img-2.png',
-              alt: '',
-            },
-            {
-              id: 3,
-              url: './../src/assets/images/store/img-3.png',
-              alt: '',
-            },
-            {
-              id: 4,
-              url: './../src/assets/images/store/img-4.png',
-              alt: '',
-            },
-          ],
-        },
+        product: {},
       };
-    },
-    computed: {
-      productImages() {
-        return this.product.images;
-      },
-      productName() {
-        return this.product.name;
-      },
-      productPrice() {
-        return this.product.price;
-      },
-      productReview() {
-        return this.product.reviews[0].text;
-      },
-      productCategories() {
-        return this.product.categories;
-      },
     },
     methods: {
       isCurrentImage(image) {
@@ -132,12 +87,24 @@
           this.alertMessage = ''
         }, 2000);
       },
+      async fetchData() {
+        try {
+          const response = await axios.get(`http://localhost:7777/products/${this.$route.params.id}`);
+          console.log(response.data);
+          this.product = response.data;
+        } catch (error) {
+          console.error(error);
+        }
+      },
     },
     components: {
       AlertBanner
     },
-    created() {
-      this.currentImage = this.product.images[0];
+    // created() {
+    //   this.currentImage = this.product.images[0];
+    // },
+    mounted() {
+      this.fetchData();
     },
   };
 </script>

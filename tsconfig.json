@@ -12,7 +12,6 @@
     }
   ],
   "compilerOptions": {
-    "isolatedModules": true,
-    "isCustomElement"
+    "isolatedModules": true
   }
 }

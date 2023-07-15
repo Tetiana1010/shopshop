@@ -1,7 +1,7 @@
 <template>
   <footer>
     <nav class="footer-nav">
-      <div class="footer-link">CONTACT</div>
+      <RouterLink to="/contact" class="footer-link">CONTACT</RouterLink>
       <div class="footer-link">TERMS OF SERVICES</div>
       <div class="footer-link">SHIPPING AND RETURNS</div>
     </nav>
@@ -28,6 +28,16 @@
     </nav>
   </footer>
 </template>
+
+<script lang="ts">
+  import { RouterLink } from 'vue-router';
+  export default {
+    name: 'FooterComponent',
+    components: {
+      RouterLink
+    }
+  }
+</script>
 
 <style scoped>
   footer {

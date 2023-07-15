@@ -2,8 +2,8 @@
   <div class="product-cards">
     <h1>Shop The Latest</h1>
     <ul>
-      <ProductCard 
-        v-for="product in productStore.products"
+      <ProductCard
+        v-for="product in products"
         :key="product.id"
         :product="product"
       />
@@ -12,42 +12,60 @@
 </template>
 
 <script lang="ts">
-  import ProductCard from './ProductCard.vue';
+import ProductCard from './ProductCard.vue';
+import axios from 'axios';
 
-  export default {
-    name: 'MainBanner',
-    data() {
-      return {
-        productStore: {
-          currentProduct: null,
-          products: [
-            {
-              id: 1,
-              imagerURL: 'src/assets/images/store/img-1.png',
-              title: 'Lira Earrings',
-              price: '$ 20,00'
-            },
-            {
-              id: 2,
-              imagerURL: 'src/assets/images/store/img-2.png',
-              title: 'Hal Earrings',
-              price: '$ 25,00'
-            },
-            {
-              id: 3,
-              imagerURL: 'src/assets/images/store/img-3.png',
-              title: 'Kaede Hair Pin Set Of 3',
-              price: '$ 30,00'
-            },
-          ],
-        },
-      };
+export default {
+  name: 'ProductCards',
+  data() {
+    return {
+      currentProduct: null,
+      products: [],
+      imageBuffer: null,
+      imageDataUrl: null,
+    };
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await axios.get('http://localhost:7777/products');
+        console.log(response.data);
+        this.products = response.data;
+      } catch (error) {
+        console.error(error);
+      }
     },
-    components: {
-      ProductCard,
+    createImageBuffer() {
+      this.imageBuffer = new Uint8Array([
+        49, 54, 56, 57, 52, 57, 52, 57, 55, 48, 56, 57, 53, 45, 112, 104, 111, 116, 111, 95, 50, 48, 50, 51, 45, 48, 54, 45, 50, 55, 32, 49, 56, 46, 51, 54, 46, 53, 54, 46, 106, 112, 101, 103
+      ]);
+      this.convertBufferToImage();
     },
-  }
+    convertBufferToImage() {
+      try {
+        const decoder = new TextDecoder('utf-8');
+        const decodedString = decoder.decode(this.imageBuffer);
+        const base64Image = btoa(decodedString);
+        this.imageDataUrl = `data:image/png;base64,${base64Image}`;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
+  created() {
+    this.createImageBuffer();
+  },
+  components: {
+    ProductCard,
+  },
+};
 </script>
+
+
+
 
 <style scoped>
   .product-cards {

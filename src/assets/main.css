@@ -44,6 +44,27 @@ h4 {
   text-transform: capitalize;
 }
 
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem
+}
+
+.form-container input.input-field, .form-container select.input-field {
+  grid-column: span 1 / span 1;
+}
+
+.form-container textarea.input-field {
+  grid-column: span 2 / span 2;
+}
+
+.input-field {
+  padding: 0.5rem;
+  border-width: 0 0 1px 0;
+  border-color: black;
+  background-color: white;
+}
+
 .price {
   color: var(--light-colors-accent-light);
 }
