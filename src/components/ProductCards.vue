@@ -55,7 +55,6 @@
     flex-direction: column;
     gap: 1.5rem;
   }
-
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr ;
@@ -65,13 +64,11 @@
     padding: 0;
     margin: 0;
   }
-
   @media only screen and (max-width: 768px) {
     ul {
       grid-template-columns: 1fr 1fr;
     }
   }
-
   @media only screen and (max-width: 481px) {
     ul {
       grid-template-columns: 1fr;

@@ -44,3 +44,6 @@ h4 {
   text-transform: capitalize;
 }
 
+.price {
+  color: var(--light-colors-accent-light);
+}

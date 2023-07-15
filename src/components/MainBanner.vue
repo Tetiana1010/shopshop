@@ -57,61 +57,55 @@ export default {
 </script>
 
 <style scoped>
-#product-promo-banner {
-  position: relative;
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  height: 646px;
-  background-position: right;
-  color: var(--light-colors-white-light, #FFF);
-  background-repeat: no-repeat;
-  padding: 3rem;
-}
-
-.product-promo-banner-text {
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-button {
-  opacity: 0.8;
-}
-
-button:hover {
-  opacity: 1;
-}
-
-button.white-bordered {
-  background: transparent;
-  border: 2px solid white;
-  font-size: 1.4rem;
-  padding: 1rem 2rem;
-  border-radius: 6px;
-  color: var(--light-colors-white-light, #FFF);
-}
-
-.dots {
-  position: absolute;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 1rem;
-  gap: 1rem;
-  bottom: 3rem;
-  margin: auto;
-}
-
-.dot {
-  display: flex;
-  width: 1rem;
-  height: 1rem;
-  background-color: white;
-  border-radius: 100px;
-  border: none;
-}
+  #product-promo-banner {
+    position: relative;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    height: 646px;
+    background-position: right;
+    color: var(--light-colors-white-light, #FFF);
+    background-repeat: no-repeat;
+    padding: 3rem;
+  }
+  .product-promo-banner-text {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  button {
+    opacity: 0.8;
+  }
+  button:hover {
+    opacity: 1;
+  }
+  button.white-bordered {
+    background: transparent;
+    border: 2px solid white;
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    color: var(--light-colors-white-light, #FFF);
+  }
+  .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1rem;
+    gap: 1rem;
+    bottom: 3rem;
+    margin: auto;
+  }
+  .dot {
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: 100px;
+    border: none;
+  }
 </style>
