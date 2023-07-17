@@ -1,0 +1,99 @@
+@import './base.css';
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  gap: 2rem;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+h1 {
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.125rem;
+}
+
+h2 {
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.25rem; 
+}
+
+h3 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+h4 {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  text-transform: capitalize;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem
+}
+
+.form-container .input-field {
+  padding: 0.5rem;
+  border-width: 0 0 1px 0;
+  border-color: rgba(0, 0, 0, 0.724);
+  background-color: white;
+}
+
+.form-container .input-field:focus-visible {
+  outline: none;
+  border-color: black;
+}
+
+.form-container input.input-field, .form-container select.input-field {
+  grid-column: span 1 / span 1;
+}
+
+.form-container textarea.input-field {
+  grid-column: span 2 / span 2;
+}
+
+.form-container div.button-wrapper {
+  grid-column: span 2 / span 2;
+  display: flex;
+  justify-content: center;
+
+}
+
+.form-container .form-button {
+  background-color: black;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  width: 400px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.product-price {
+  color: var(--light-colors-accent-light);
+}
+
