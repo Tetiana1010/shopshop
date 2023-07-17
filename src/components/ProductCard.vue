@@ -5,13 +5,11 @@
       <h3>{{product.name}}</h3>
     </RouterLink>
     <h4 class="price">{{product.price}}</h4>
-    <!-- <button @click="deleteProduct(product.id)">Delete</button> -->
   </li>
 </template>
 
 <script lang="ts">
   import { RouterLink } from 'vue-router';
-  // import axios from 'axios';
 
   interface Product {
     name: string;

@@ -1,9 +1,19 @@
-import { getAllProducts, getProductById, insertProduct, deleteProductById } from '../models/products.model.js';
+import { getAllProducts, getAllContactMessages, getProductById, insertProduct, deleteProductById, insertMessage } from '../models/products.model.js';
 
 export const getAll = (req, res) => {
   getAllProducts((err, result) => {
     if (err) {
       res.status(500).json({ error: "Error retrieving products from the database." });
+    } else {
+      res.json(result);
+    }
+  });
+};
+
+export const getAllMessages = (req, res) => {
+  getAllContactMessages((err, result) => {
+    if (err) {
+      res.status(500).json({ error: "Error retrieving messages from the database." });
     } else {
       res.json(result);
     }
@@ -38,6 +48,22 @@ export const createProduct = (req, res) => {
         res.status(404).json({ message: "No product was created." });
       } else {
         res.json({ message: "Product created successfully." });
+      }
+    }
+  });
+};
+
+export const createMessage = (req, res) => {
+  const { firstName, lastName, email, subject, message } = req.body;
+
+  insertMessage(firstName, lastName, email, subject, message, (err, result) => {
+    if (err) {
+      res.status(500).json({ error: "Error occurred while creating a new message." });
+    } else {
+      if (result.affectedRows === 0) {
+        res.status(404).json({ message: "No message was created." });
+      } else {
+        res.json({ message: "Message created successfully." });
       }
     }
   });
