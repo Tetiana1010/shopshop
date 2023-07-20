@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import IconDivider  from '../icons/IconDivider.vue';
 import IconSearch from '../icons/IconSearch.vue';
-import IconShoppingCart from '../icons/IconShoppingCart.vue'
-import IconUser from '../icons/IconUser.vue'
+import IconShoppingCart from '../icons/IconShoppingCart.vue';
+import IconUser from '../icons/IconUser.vue';
 </script>
 
 <template>
@@ -15,13 +16,12 @@ import IconUser from '../icons/IconUser.vue'
       <RouterLink to="/blog">Blog</RouterLink>
       <RouterLink to="/our-story">Our Story</RouterLink>
     </nav>
-    <div>
-      <nav>
-        <IconSearch />
-        <IconShoppingCart />
-        <IconUser />
-      </nav>
-    </div>
+    <IconDivider />
+    <nav>
+      <IconSearch />
+      <IconShoppingCart />
+      <IconUser />
+    </nav>
   </header>
 </template>
 

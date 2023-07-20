@@ -36,7 +36,7 @@ export default {
   methods: {
     async fetchMessages() {
       try {
-        const response = await axios.get('http://localhost:7777/products/messages');
+        const response = await axios.get('http://localhost:7777/messages');
         console.log(response.data);
         this.messages = response.data;
       } catch (error) {

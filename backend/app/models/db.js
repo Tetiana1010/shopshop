@@ -16,6 +16,16 @@ connection.connect((err) => {
   }
 });
 
+export const executeQuery = async (query, values) => new Promise((resolve, reject) => 
+  connection.query(query, values, (err, result) => {
+    if (err) {
+      reject(err);
+    } else {
+      resolve(result);
+    }
+  }
+));
+
 export default connection;
 
 

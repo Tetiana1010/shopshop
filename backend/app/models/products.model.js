@@ -1,48 +1,27 @@
-import connection from './db.js';
+import { executeQuery } from './db.js';
 
-const executeQuery = (query, values, callback) => {
-  connection.query(query, values, (err, result) => {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, result);
-    }
-  });
-};
-
-export const getAllProducts = (callback) => {
+export const getAllProducts = async () => {
   const query = "SELECT * FROM products";
-  executeQuery(query, null, callback);
+  return await executeQuery(query, null);
 };
 
-export const getAllContactMessages = (callback) => {
-  const query = "SELECT * FROM contactMessages";
-  executeQuery(query, null, callback);
-};
-
-export const getProductById = (productId, callback) => {
+export const getProductById = async (productId) => {
   const query = `SELECT * FROM products WHERE id = ?`;
-  executeQuery(query, [productId], callback);
+  return await executeQuery(query, [productId]);
 };
 
-export const getReviewsById = (productId, callback) => {
+export const getReviewsById = async (productId) => {
   const query = `SELECT * FROM reviews WHERE product_id = ?`;
-  executeQuery(query, [productId], callback);
+  return await executeQuery(query, [productId]);
 };
 
-export const insertProduct = (name, price, description, image, callback) => {
+export const insertProduct = async (name, price, description, image) => {
   const query = `INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)`;
   const values = [name, price, description, image];
-  executeQuery(query, values, callback);
+  return await executeQuery(query, values);
 };
 
-export const insertMessage = (firstName, lastName, email, subject, message, callback) => {
-  const query = `INSERT INTO contactMessages (firstName, lastName, email, subject, message) VALUES (?, ?, ?, ?, ?)`;
-  const values = [firstName, lastName, email, subject, message];
-  executeQuery(query, values, callback);
-};
-
-export const deleteProductById = (productId, callback) => {
+export const deleteProductById = async (productId) => {
   const query = `DELETE FROM products WHERE id = ?`;
-  executeQuery(query, [productId], callback);
+  return await executeQuery(query, [productId]);
 };
