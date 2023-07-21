@@ -1,10 +1,9 @@
 <template>
-  <div class="rating">
-    <IconStar :fill="rating >= 1 ? true : false"/>
-    <IconStar :fill="rating >= 2 ? true : false"/>
-    <IconStar :fill="rating >= 3 ? true : false"/>
-    <IconStar :fill="rating >= 4 ? true : false"/>
-    <IconStar :fill="rating >= 5 ? true : false"/>
+  <div class="star-rating">
+    <IconStar 
+      v-for="i in 5" 
+      :key="i" :fill="rating >= i ? true : false" 
+    />
   </div>
 </template>
 
@@ -23,3 +22,10 @@
     }
   }
 </script>
+
+<style>
+  .star-rating {
+    display: flex;
+    gap: 0.5rem;
+  }
+</style>

@@ -38,7 +38,6 @@ h3 {
 }
 
 h4 {
-  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: 26px;
@@ -51,23 +50,24 @@ h4 {
   gap: 3rem
 }
 
-.form-container .input-field {
+.form-container input {
   padding: 0.5rem;
   border-width: 0 0 1px 0;
   border-color: rgba(0, 0, 0, 0.724);
   background-color: white;
 }
 
-.form-container .input-field:focus-visible {
+.form-container input:focus-visible {
   outline: none;
   border-color: black;
 }
 
-.form-container input.input-field, .form-container select.input-field {
+.form-container input.input-field, 
+.form-container select.input-field {
   grid-column: span 1 / span 1;
 }
 
-.form-container textarea.input-field {
+.form-container textarea.input-field  {
   grid-column: span 2 / span 2;
 }
 
@@ -84,7 +84,7 @@ h4 {
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 0.5rem;
-  width: 400px;
+  max-width: 400px;
 }
 
 .product-details {

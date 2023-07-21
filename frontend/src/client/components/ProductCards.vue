@@ -1,6 +1,5 @@
 <template>
   <div class="product-cards">
-    <h1>Shop The Latest</h1>
     <ul>
       <ProductCard
         v-for="product in products"

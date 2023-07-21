@@ -1,11 +1,12 @@
 import express from 'express';
+import multer from 'multer';
 
-import { 
-  getReviews,
-} from '../controllers/controller.js';
+import { getReviewsController, createReviewController } from '../controllers/controller.js';
+const upload = multer();
 
 const router = express.Router();
 
-router.get('/:id', getReviews);
+router.get('/:id', getReviewsController);
+router.post('/new', upload.none(), createReviewController);
 
 export default router;

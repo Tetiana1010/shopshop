@@ -14,7 +14,7 @@
     <div class="product-info">
       <div class="product-details">
         <h1 v-if="product.name" class="product-title">{{ product.name }}</h1>
-        <h2 v-if="product.price" class="product-price">{{ product.price }} $</h2>
+        <h2 v-if="product.price" class="product-price">{{ formattedPrice }}</h2>
       </div>
       <div class="product-review">
         <StarRating :rating="3" />
@@ -43,48 +43,19 @@
         <p v-if="product.category" class="product-category">Category: <span>{{ product.category }}</span></p>
       </div>
     </div>
-    <div class="product-tab">
-      <div class="parent-container">
-        <ul class="tab-list">
-            <li class="tab-item">
-                <span class="tab-text" @click="showTab('description')" :class="{ 'active-tab-text': activeTab === 'description' }">Description</span>
-            </li>
-            <li class="tab-item">
-                <span class="tab-text" :class="{ 'active-tab-text': activeTab === 'additional' }" @click="showTab('additional')">Aditional information</span>
-            </li>
-            <li class="tab-item" >
-                <span class="tab-text" @click="showTab('reviews')" :class="{ 'active-tab-text': activeTab === 'reviews'}">Reviews({{reviews.length}})</span>
-            </li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div v-if="product.description && activeTab === 'description'">
-          {{product.description}}
-        </div>
-        <div v-else-if="activeTab === 'additional'">Additional information content goes here</div>
-        <div v-else-if="reviews.length && activeTab === 'reviews'">
-          <ul class="review-list">
-            <ProductReview 
-              v-for="review in reviews" 
-              :key="review.id" 
-              :review_text="review.review_text" 
-              :rating="review.rating"
-              :reviewer_name="review.reviewer_name"
-            />
-          </ul>
-          <div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ProductTab 
+      :productName="product.name"
+      :reviews="reviews" 
+      :description="product.description"
+    />
   </main>
 </template>
 
 
 <script lang="ts">
   import axios from 'axios';
-  import ProductReview from '../components/ProductReview.vue';
-  import StarRating from '../components/StarRating.vue'
+  import ProductTab from '../components/ProductTab.vue';
+  import StarRating from '../components/StarRating.vue';
   import ImageSkeleton from '../../common/components/ImageSkeleton.vue';
   import IconHeart from '../../common/icons/IconHeart.vue';
   import IconDivider  from '../../common/icons/IconDivider.vue';
@@ -104,8 +75,8 @@
   }
 
   interface MyComponentData {
-    quantity: number;
-    currentImage: string | null;
+    quantity: number,
+    currentImage: string | null,
     product: Product,
     reviews: Review[];
   }
@@ -117,9 +88,8 @@
       return {
         quantity: 0,
         currentImage: null,
-        activeTab: 'additional',
-        product: Object as () => Product,
-        reviews: [] as () => Review
+        product: {},
+        reviews: []
       };
     },
     methods: {
@@ -139,9 +109,6 @@
       increaseQuantity() {
         this.quantity++;
       },
-      showTab(tab) {
-        this.activeTab = tab;
-      },
       async fetchData() {
         try {
           const responseProduct = await axios.get(`http://localhost:7777/products/${this.$route.params.id}`);
@@ -154,7 +121,7 @@
       },
     },
     created() {
-    this.$watch(
+      this.$watch(
         () => this.$route.params,
         () => {
           this.fetchData();
@@ -162,8 +129,13 @@
         { immediate: true }
       )
     },
+    computed: {
+      formattedPrice(){
+        return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(this.product.price)
+      }
+    },
     components: {
-      ProductReview,
+      ProductTab,
       StarRating,
       ImageSkeleton,
       IconHeart,
@@ -271,58 +243,4 @@
     gap: 3rem;
     align-items: center;
   }
-
-  .product-tab {
-    grid-column: span 2 / span 2;
-  }
-
-  .parent-container {
-    font-size: 0.875rem; 
-    font-weight: 500; 
-    text-align: center;
-    color: #a1a1aa; 
-    border-bottom: 1px solid #edf2f7;
-  }
-
-.tab-list {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap; 
-  margin-bottom: -2px;
-  list-style: none;
-  padding: 0;
-}
-
-.tab-item {
-  margin-right: 0.5rem;
-}
-
-.tab-text {
-  display: inline-block;
-  padding: 1rem 0;
-  border-bottom-width: 2px;
-  border-color: transparent;
-  color: inherit;
-  text-decoration: none;
-}
-
-.active-tab-text, .tab-text:hover {
-  color: black;
-  border-bottom: 1px solid black; 
-}
-
-.disabled-tab-text {
-  color: #cbd5e0;
-  cursor: not-allowed;
-}
-
-.tab-content {
-  padding: 1rem 0;
-}
-
-.review-list {
-  list-style: none;
-  padding: 0;
-}
-
 </style>

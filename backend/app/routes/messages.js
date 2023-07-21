@@ -1,14 +1,11 @@
 import express from 'express';
 
-import { 
-  getAllMessages, 
-  createMessage 
-} from '../controllers/controller.js';
+import { getAllMessagesController, createMessageController } from '../controllers/controller.js';
 
 const router = express.Router();
 
-router.get('/', getAllMessages);
+router.get('/', getAllMessagesController);
 
-router.post('/new', createMessage);
+router.post('/new', createMessageController);
 
 export default router;

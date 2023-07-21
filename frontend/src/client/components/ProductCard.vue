@@ -5,7 +5,7 @@
     <RouterLink :to="'/shop/' + product.id">
       <h3 class="product-title">{{product.name}}</h3>
     </RouterLink>
-    <h4 v-if="product.price" class="product-price">{{product.price}} $</h4>
+    <h4 v-if="product.price" class="product-price">{{ formattedPrice }}</h4>
   </li>
 </template>
 
@@ -34,6 +34,11 @@
         type: String,
         default: '',
       },
+    },
+    computed: {
+      formattedPrice(){
+        return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(this.product.price)
+      }
     },
     components: {
       RouterLink,
