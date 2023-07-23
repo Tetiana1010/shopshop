@@ -1,13 +1,13 @@
 <template>
-  <li class="product-catd">
+  <li class="product-card">
     <div v-if="product.imagerURL" :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" class="bg-image" />
     <ImageSkeleton v-else /> 
     <RouterLink :to="'/shop/' + product.id">
       <h3 class="product-title">{{product.name}}</h3>
     </RouterLink>
-    <h4 v-if="product.price" class="product-price">{{ formattedPrice }}</h4>
+    <h4 v-if="product.price" class="product-price">{{ formattedPrice(product.price) }}</h4>
     <div class="product-actions">
-      <button @click="deleteProduct(product.id)">Delete</button>
+      <button @click="deleteProductById(product.id)">Delete</button>
       <button>Edit</button>
     </div>
 </li>
@@ -15,8 +15,10 @@
 
 <script lang="ts">
   import { RouterLink } from 'vue-router';
-  import ImageSkeleton from '../../common/components/ImageSkeleton.vue'
-  import axios from 'axios';
+  import ImageSkeleton from '../../common/components/ImageSkeleton.vue';
+
+  import { mapActions } from 'pinia';
+  import { useProductStore } from '../../store/productStore';
 
   interface Product {
     name: string;
@@ -41,22 +43,7 @@
     },
   },
   methods: {
-    async deleteProduct(productId: string) {
-      try {
-        const response = await axios.delete(`http://localhost:7777/products/${productId}`);
-        console.log(response.data);
-        if(response.data.message === "Product deleted."){
-          this.$emit('product-deleted');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-  computed: {
-    formattedPrice(){
-      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(this.product.price)
-    }
+    ...mapActions(useProductStore, ['deleteProductById', 'formattedPrice']),
   },
   components: {
     RouterLink,
@@ -66,16 +53,16 @@
 </script>
 
 <style>
-  li.product-catd {
+  li.product-card {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     border-radius: 0.5rem;
   }
-  li.product-catd a {
+  li.product-card a {
     color: black;
   }
-  li.product-catd div.bg-image {
+  li.product-card div.bg-image {
     background-repeat: none;
     align-items: center;
     background-position: center;
@@ -89,7 +76,7 @@
     border-radius: 0.5rem;
     position: relative;
   }
-  li.product-catd div.bg-image::before {
+  li.product-card div.bg-image::before {
     content: "";
     display: block;
     padding-top: 100%;

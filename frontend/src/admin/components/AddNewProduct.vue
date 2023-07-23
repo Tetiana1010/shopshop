@@ -20,9 +20,17 @@
 <script lang="ts">
   import axios from 'axios';
 
+  interface NewProduct {
+    productName: String,
+    productPrice: Number,
+    productDescription: String,
+    productImage: String | null,
+    productImageURL: String |  null,
+  }
+
   export default {
     name: 'AddNewProduct',
-    data() {
+    data(): NewProduct {
       return {
         productName: '',
         productPrice: 0,
@@ -36,7 +44,7 @@
         this.productImage = null;
         this.productImageURL = null;
       },
-      handleImageUpload(event){
+      handleImageUpload(event: any){
         this.productImage = event.target.files[0];
         this.productImageURL = URL.createObjectURL(this.productImage);
       },

@@ -33,6 +33,7 @@
     rating: number
     review_text: string,
     reviewer_name: string,
+    created_at: string
   }
 
   import ReviewSection from './ReviewSection.vue';
@@ -50,7 +51,7 @@
       productName: String
     },
     methods: {
-      showTab(tab) {
+      showTab(tab: string) {
         this.activeTab = tab;
       }
     },
@@ -61,8 +62,8 @@
 </script>
 
 <style scoped>
-  .product-tab {
-    grid-column: span 2 / span 2;
+  .product-view .product-tab {
+    grid-area: 3 / 1 / 5 / 13;
   }
 
   .parent-container {

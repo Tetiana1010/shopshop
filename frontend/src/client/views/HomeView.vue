@@ -5,16 +5,9 @@
   </main>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import MainBanner from '../components/MainBanner.vue';
 import ProductCards from '../components/ProductCards.vue';
-
-export default {
-  components: {
-    MainBanner,
-    ProductCards,
-  }
-};
 </script>
 
 <style>

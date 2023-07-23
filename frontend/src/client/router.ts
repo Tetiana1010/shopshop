@@ -4,7 +4,7 @@ import ProductView from './views/ProductView.vue';
 import BlogView from './views/BlogView.vue';
 import OurStoryView from './views/OurStoryView.vue';
 
-const clientRoutes = [
+export const clientRoutes = [
   {
     path: '/',
     name: 'home',

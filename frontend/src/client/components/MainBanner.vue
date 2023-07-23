@@ -18,42 +18,55 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+interface Image {
+  id: number;
+  url: string;
+}
+
+interface ImageStore {
+  currentImage: Image | null;
+  images: Image[];
+}
+
+export default defineComponent({
   name: 'MainBanner',
   data() {
+    const imageStore: ImageStore = {
+      currentImage: null,
+      images: [
+        {
+          id: 1,
+          url: 'src/assets/images/main-1.png',
+        },
+        {
+          id: 2,
+          url: 'src/assets/images/main-2.png',
+        },
+        {
+          id: 3,
+          url: 'src/assets/images/main-3.png',
+        },
+      ],
+    };
     return {
-      imageStore: {
-        currentImage: null,
-        images: [
-          {
-            id: 1,
-            url: 'src/assets/images/main-1.png',
-          },
-          {
-            id: 2,
-            url: 'src/assets/images/main-2.png',
-          },
-          {
-            id: 3,
-            url: 'src/assets/images/main-3.png',
-          },
-        ],
-      },
+      imageStore,
     };
   },
   created() {
     this.imageStore.currentImage = this.imageStore.images[0];
   },
   methods: {
-    updateCurrentImage(image) {
+    updateCurrentImage(image: Image) {
       this.imageStore.currentImage = image;
     },
     viewProject() {
       // Handle the "View project" button click
     },
   },
-};
+});
 </script>
 
 <style scoped>

@@ -2,6 +2,9 @@
   "name": "shopshop",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "main": "dist/index",
+  "types": "dist/index",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -14,6 +17,7 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "pinia": "^2.1.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },

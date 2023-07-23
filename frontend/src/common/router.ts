@@ -1,5 +1,5 @@
 import PrivacyPolicyView from './views/PrivacyPolicyView.vue';
-import ContactView from './views/ContactView.vue';
+import ContactView from '@/common/views/ContactView.vue';
 
 const commonRoutes = [
   {

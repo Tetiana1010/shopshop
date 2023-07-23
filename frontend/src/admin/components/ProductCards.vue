@@ -14,28 +14,19 @@
 
 <script lang="ts">
 import ProductCard from './ProductCard.vue';
-import axios from 'axios';
+import { mapState, mapActions } from 'pinia';
+import { useProductStore } from '../../store/productStore';
 
 export default {
   name: 'ProductCards',
-  data() {
-    return {
-      products: [],
-    };
+  computed: {
+    ...mapState(useProductStore, ['products'])
   },
   methods: {
-    async fetchData() {
-      try {
-        const response = await axios.get('http://localhost:7777/products');
-        console.log(response.data);
-        this.products = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    ...mapActions(useProductStore, ['fetchAllProducts']),
   },
   mounted() {
-    this.fetchData();
+    this.fetchAllProducts();
   },
   components: {
     ProductCard,

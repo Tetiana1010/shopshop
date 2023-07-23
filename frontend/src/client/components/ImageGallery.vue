@@ -19,13 +19,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ImageGallery',
   props: {
     productImages: {
-      type: Array as PropType<Array>,
+      type: Array,
       required: true,
     },
   },

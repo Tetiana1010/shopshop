@@ -14,12 +14,13 @@ import { defineComponent } from 'vue';
 import ReviewItem from './ReviewItem.vue';
 import AddReview from './AddReview.vue';
 
-interface Review {
-  id: number;
-  product_id: number;
-  rating: number;
-  review_text: string;
-  reviewer_name: string;
+ interface Review {
+  id: number,
+  product_id: number,
+  rating: number,
+  review_text: string,
+  reviewer_name: string,
+  created_at: string
 }
 
 export default defineComponent({
@@ -34,7 +35,7 @@ export default defineComponent({
   },
   computed: {
     reviewCountText(): string {
-      const count = this.reviews.length;
+      const count = this.reviews?.length;
       return `${count} review${count !== 1 ? 's' : ''}`;
     },
   },

@@ -2,9 +2,9 @@
   <div class="add-review">
     <h3>Add a Review</h3>
     <p>Your email address will not be published. Required fields are marked.</p>
-    <form class="form-container" @submit.prevent="addReview">
+    <form class="form-container" @submit.prevent="handleSubmit">
       <input type="text" v-model="formData.reviewText" placeholder="Your Review*" class="input-field review-field" required />
-      <input type="text" v-model="formData.name" placeholder="Enter your name*" class="input-field review-field" required />
+      <input type="text" v-model="formData.reviewerName" placeholder="Enter your name*" class="input-field review-field" required />
       <input type="email" v-model="formData.email" placeholder="Enter your Email*" class="input-field review-field" required />
       <div class="input-field review-field">
         <input type="checkbox" v-model="formData.saveEmail" id="saveEmail" />
@@ -25,39 +25,38 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import { defineComponent } from 'vue';
+import { mapActions } from 'pinia';
+import { useReviewStore } from '../../store/reviewStore';
 import IconStar from '../../common/icons/IconStar.vue';
+
+interface FormData {
+  id: number;
+  reviewerName: string;
+  email: string;
+  reviewText: string;
+  saveEmail: boolean;
+  rating: number;
+}
 
 export default defineComponent({
   name: 'AddProductReview',
   data() {
     return {
-      formData: {
-        name: '',
+      formData:  {
+        reviewerName: '',
         email: '',
         reviewText: '',
         saveEmail: false,
         rating: 0,
-      },
+      } as FormData,
     };
   },
   methods: {
-    async addReview() {
-      try {
-        const response = await axios.post('http://localhost:7777/reviews/new', {
-          product_id: this.$route.params.id,
-          reviewer_name: this.formData.name,
-          email: this.formData.email,
-          review_text: this.formData.reviewText,
-          rating: this.formData.rating,
-          save_email: Number(this.formData.saveEmail),
-        });
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+    handleSubmit(){
+      this.addReview({ ...this.formData, id: this.$route.params.id, });
     },
+    ...mapActions(useReviewStore, ['addReview'])
   },
   components: {
     IconStar,

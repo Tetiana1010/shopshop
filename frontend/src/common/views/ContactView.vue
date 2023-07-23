@@ -22,17 +22,17 @@
 <script lang="ts">
   import axios from 'axios';
 
-  interface FormData {
-    firstName: string,
-    lastName: string,
-    email: string,
-    subject: string,
-    message: string
-  };
+  // interface FormData {
+  //   firstName: string,
+  //   lastName: string,
+  //   email: string,
+  //   subject: string,
+  //   message: string
+  // };
 
   export default {
     name: 'ContactView',
-    data(): FormData {
+    data() {
       return {
         firstName: '',
         lastName: '',
