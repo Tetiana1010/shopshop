@@ -22,10 +22,6 @@
 </script>
 
 <style scoped>
-  .admin-view {
-    display: flex;
-    min-height: 100vh;
-  }
 </style>
 
 

@@ -6,10 +6,8 @@
   </div>
 </template>
 <style scoped>
-  .product-view .skeleton{
-    grid-area: 1 / 1 / 3 / 7;
-  }
   .skeleton {
+    grid-column: 6 span;
     display: flex;
     align-items: center;
     justify-content: center;

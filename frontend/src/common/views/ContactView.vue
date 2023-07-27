@@ -3,15 +3,15 @@
     <h1>Contact Us</h1>
     <p>Say Hello send us your thoughts about our products or share your ideas with our Team!</p>
     <form class="form-container" @submit.prevent="addMessage">
-      <input type="text" autocomplete="given-name" placeholder="First name" v-model="firstName" class="input-field" required />
-      <input type="text" autocomplete="family-name" placeholder="Last name" v-model="lastName" class="input-field" required />
-      <input type="email" autocomplete="off" placeholder="Email" v-model="email" class="input-field" required/>
-      <select v-model="subject" class="input-field" required>
+      <input type="text" autocomplete="given-name" placeholder="First name" v-model="firstName"  required />
+      <input type="text" autocomplete="family-name" placeholder="Last name" v-model="lastName"  required />
+      <input type="email" autocomplete="off" placeholder="Email" v-model="email"  required/>
+      <select v-model="subject"  required>
         <option disabled value="">Subject</option>
         <option value="cooperation">Cooperation</option>
         <option value="other">Other</option>
       </select>
-      <textarea v-model="message" placeholder="Message" class="input-field" required />
+      <textarea v-model="message" placeholder="Message"  required />
       <div class="button-wrapper">
         <button type="submit" class="form-button">SEND</button>
       </div>

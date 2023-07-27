@@ -1,11 +1,14 @@
 <template>
   <main class="product-view">
-    <ImageSkeleton v-if="currentProduct === null" />
-    <ProductDetails :currentProduct="currentProduct" :reviews="reviews" />
-    <ProductActions v-if="currentProduct !== null" />
+    <ImageSkeleton />
+    <div class="product-wrapper">
+      <ProductDetails v-if="currentProduct !== null" :currentProduct="currentProduct" :reviews="reviews" />
+      <ProductActions v-if="currentProduct !== null" />
+    </div>
     <ProductTab  v-if="currentProduct !== null" :productName="currentProduct.name" :description="currentProduct.description" :reviews="reviews" />
   </main>
 </template>
+
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { mapState, mapActions } from 'pinia'; 
@@ -51,17 +54,10 @@
 </script>
 
 <style scoped>
-  .product-view {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, auto);
-    grid-column-gap: 2.5rem;
-    grid-row-gap: 2.4rem; 
-  }
-  @media only screen and (max-width: 768px) {
-    .product-view {
-      display: flex;
-    }
+  .product-wrapper {
+    grid-column: 6 span;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 </style>
-

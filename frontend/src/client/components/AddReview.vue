@@ -1,8 +1,8 @@
 <template>
-  <div class="add-review">
+  <section class="add-review">
     <h3>Add a Review</h3>
     <p>Your email address will not be published. Required fields are marked.</p>
-    <form class="form-container" @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="form-container">
       <input type="text" v-model="formData.reviewText" placeholder="Your Review*" class="input-field review-field" required />
       <input type="text" v-model="formData.reviewerName" placeholder="Enter your name*" class="input-field review-field" required />
       <input type="email" v-model="formData.email" placeholder="Enter your Email*" class="input-field review-field" required />
@@ -21,7 +21,7 @@
       </div>
       <button class="form-button" type="submit">Submit</button>
     </form>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -68,15 +68,7 @@ export default defineComponent({
 .add-review {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.form-container .review-field {
-  grid-column: span 2 / span 2 !important;
-}
-
-input[type="checkbox"] {
-  margin-right: 0.5rem;
+  gap: 2rem;
 }
 
 .star-label {
@@ -84,10 +76,5 @@ input[type="checkbox"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
-}
-
-input[type="radio"] {
-  position: absolute;
-  opacity: 0;
 }
 </style>

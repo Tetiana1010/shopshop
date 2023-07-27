@@ -2,7 +2,7 @@
   <li class="review-item">
     <div class="reviewer-info">
       <h4>{{ review.reviewer_name }}</h4>
-      <small>{{ formattedDate }}</small>
+      <time :datetime="review.created_at">{{ formattedDate }}</time>
     </div>
     <StarRating :rating="review.rating" />
     <p class="review-description">{{ review.review_text }}</p>

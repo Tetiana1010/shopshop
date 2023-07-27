@@ -1,5 +1,5 @@
 <template>
-  <li class="product-card">
+  <article class="product-card">
     <div v-if="product.imagerURL" :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" class="bg-image" />
     <ImageSkeleton v-else /> 
     <RouterLink :to="'/shop/' + product.id">
@@ -10,7 +10,7 @@
       <button @click="deleteProductById(product.id)">Delete</button>
       <button>Edit</button>
     </div>
-</li>
+</article>
 </template>
 
 <script lang="ts">
@@ -51,34 +51,3 @@
   }
 };
 </script>
-
-<style>
-  li.product-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    border-radius: 0.5rem;
-  }
-  li.product-card a {
-    color: black;
-  }
-  li.product-card div.bg-image {
-    background-repeat: none;
-    align-items: center;
-    background-position: center;
-    color: var(--light-colors-white-light, #FFF);
-    background-color: #f4f4f4;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 0;
-    width: 100%;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    position: relative;
-  }
-  li.product-card div.bg-image::before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-  }
-</style>

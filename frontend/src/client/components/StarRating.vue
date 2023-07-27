@@ -24,6 +24,9 @@
 </script>
 
 <style>
+  label ~ .star-rating {
+    padding-top: 1rem;
+  }
   .star-rating {
     display: flex;
     gap: 0.5rem;

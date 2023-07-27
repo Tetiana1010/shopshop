@@ -53,6 +53,7 @@ export default {
 <style scoped>
 
 .message-list {
+  grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
   gap: 2rem;

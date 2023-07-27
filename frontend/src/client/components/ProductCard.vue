@@ -1,12 +1,14 @@
 <template>
-  <li class="product-card">
+  <article class="product-card">
     <div v-if="product.imagerURL" :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" class="bg-image"/>
     <ImageSkeleton v-else /> 
-    <RouterLink :to="'/shop/' + product.id">
-      <h3 class="product-title">{{product.name}}</h3>
-    </RouterLink>
+      <h3 class="product-title">
+        <RouterLink :to="'/shop/' + product.id">
+          {{product.name}}
+        </RouterLink>
+      </h3>
     <h4 v-if="product.price" class="product-price">{{ formattedPrice(product.price) }}</h4>
-  </li>
+  </article>
 </template>
 
 <script lang="ts">

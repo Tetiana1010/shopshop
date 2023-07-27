@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="home">
     <MainBanner />
     <ProductCards />
   </main>
@@ -10,11 +10,4 @@ import MainBanner from '../components/MainBanner.vue';
 import ProductCards from '../components/ProductCards.vue';
 </script>
 
-<style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-</style>
 

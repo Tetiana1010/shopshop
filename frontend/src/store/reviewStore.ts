@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
+const API_BASE_URL = 'http://localhost:7777';
+
 interface Review {
   id: number;
   product_id: number;
@@ -22,7 +24,7 @@ export const useReviewStore = defineStore('productReview', {
   actions: {
     async fetchReviewsById(productId: number): Promise<void> {
       try {
-        const responseReviews = await axios.get(`http://localhost:7777/reviews/${productId}`);
+        const responseReviews = await axios.get(`${API_BASE_URL}/reviews/${productId}`);
         this.reviews = responseReviews.data;
         console.log('responseReviews:', this.reviews);
       } catch (error) {
@@ -38,7 +40,7 @@ export const useReviewStore = defineStore('productReview', {
       saveEmail: boolean
     ) {
         try {
-          const response = await axios.post('http://localhost:7777/reviews/new', {
+          const response = await axios.post(`${API_BASE_URL}/reviews/new`, {
             product_id: id,
             reviewer_name: reviewerName,
             email: email,
@@ -50,7 +52,7 @@ export const useReviewStore = defineStore('productReview', {
           console.log(response.data);
         } catch (error) {
           this.message =  error;
-          console.error(error);
+          console.error('err', error);
         }
       },
   },

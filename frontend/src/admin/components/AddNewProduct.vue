@@ -1,19 +1,19 @@
 <template>
   <div class="add-new-product">
     <h2>Add new product</h2>
-    <div class="form-container">
-      <input v-model="productName" type="text" placeholder="Product Name" class="input-field" required>
-      <input v-model="productPrice" type="number" placeholder="Product Price" class="input-field" min="0" required>
-      <textarea v-model="productDescription" type="text" placeholder="Product Description" class="input-field" required></textarea>
-      <input @change="handleImageUpload" type="file" class="input-field" accept="image/*" required/>
-      <div class="input-field" v-if="productImage">
+    <form class="form-container">
+      <input v-model="productName" type="text" placeholder="Product Name" required>
+      <input v-model="productPrice" type="number" placeholder="Product Price"  min="1" required>
+      <textarea v-model="productDescription" type="text" placeholder="Product Description"  required></textarea>
+      <input @change="handleImageUpload" type="file"  accept="image/*" required/>
+      <div v-if="productImage">
         <img :src="productImageURL" alt="Product Image" width="100" />
         <button @click="removeImage" class="create-button">Remove image</button>
       </div>
       <div class="button-wrapper">
-        <button @click="addProduct" class="form-button">Create a new item</button>
+        <button @click="addProduct" type="submit">Create a new item</button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -73,6 +73,7 @@
 
 <style scoped>
   .add-new-product {
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
     gap: 2rem;

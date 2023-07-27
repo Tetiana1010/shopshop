@@ -63,7 +63,7 @@
 
 <style scoped>
   .product-view .product-tab {
-    grid-area: 3 / 1 / 5 / 13;
+    grid-column: 1 / -1;
   }
 
   .parent-container {

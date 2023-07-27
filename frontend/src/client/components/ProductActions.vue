@@ -51,12 +51,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.product-view .product-actions{
-    grid-area: 2 / 7 / 3 / 13;
-}
 .product-actions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -66,7 +63,8 @@ export default defineComponent({
   align-items: center;
   border-radius: 4px;
   background: var(--light-colors-light-gray-light);
-  padding: 0.8rem 2rem;
+  padding: 0.6rem 1.5rem;
+  flex-basis: calc(30% - 1.5rem);
 }
 
 .quantity-control button {
@@ -80,13 +78,15 @@ export default defineComponent({
 }
 
 .add-to-cart-button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
   background: transparent;
   border: 2px solid black;
   font-size: 1.4rem;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem;
   border-radius: 6px;
   color: black;
-  flex: 1;
 }
 
 .product-icon-container {
@@ -94,5 +94,6 @@ export default defineComponent({
   justify-content: start;
   gap: 3rem;
   align-items: center;
+  flex-basis: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div id="product-promo-banner" :style="{ 'background-image': 'url(' + imageStore.currentImage.url + ')' }">
+  <div id="product-promo-banner" :style="{ 'background-image': 'url(' + currentImg.url + ')' }">
     <div class="product-promo-banner-text">
       <h1>Gold big hoops</h1>
       <h2>$ 68,00</h2>
@@ -9,9 +9,9 @@
     </div>
     <div class="dots">
       <button
-        v-for="image in imageStore.images"
+        v-for="(image, index) in images"
         :key="image.id"
-        @click="updateCurrentImage(image)"
+        @click="updateCurrentImage(index)"
         class="dot"
       />
     </div>
@@ -27,14 +27,17 @@ interface Image {
 }
 
 interface ImageStore {
-  currentImage: Image | null;
-  images: Image[];
+  currentImage: Image | null,
+  images: Image[],
+  timer: number,
+  currentIndex: number
 }
 
 export default defineComponent({
   name: 'MainBanner',
-  data() {
-    const imageStore: ImageStore = {
+  data(): ImageStore {
+    return {
+      timer: null,
       currentImage: null,
       images: [
         {
@@ -50,27 +53,37 @@ export default defineComponent({
           url: 'src/assets/images/main-3.png',
         },
       ],
-    };
-    return {
-      imageStore,
-    };
+      currentIndex: 0
+    }
   },
   created() {
-    this.imageStore.currentImage = this.imageStore.images[0];
+    this.currentImage = this.images[0];
   },
   methods: {
-    updateCurrentImage(image: Image) {
-      this.imageStore.currentImage = image;
+    updateCurrentImage(index: number) {
+      this.currentIndex = index;
     },
-    viewProject() {
-      // Handle the "View project" button click
+    startSlide(){
+      this.timer = setInterval(this.next, 3000);
+    },
+    next: function() {
+      this.currentIndex += 1;
     },
   },
+  mounted: function() {
+    this.startSlide();
+  },
+  computed: {
+    currentImg: function() {
+      return this.images[Math.abs(this.currentIndex) % this.images.length];
+    }
+  }
 });
 </script>
 
 <style scoped>
   #product-promo-banner {
+    grid-column: 1 / -1;
     position: relative;
     border-radius: 1rem;
     display: flex;
