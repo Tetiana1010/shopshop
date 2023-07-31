@@ -48,11 +48,6 @@ export default defineComponent({
   color: var(--light-colors-dark-gray-light);
 }
 
-.product-details bdi {
- color: black;
- padding-right: .5rem;
-}
-
 .product-review {
   display: flex;
   flex-wrap: wrap;

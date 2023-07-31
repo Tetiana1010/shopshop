@@ -15,9 +15,9 @@ export const getProductByIdController = async (req, res) => {
 };
 
 export const createProductController = async (req, res) => {
-  const { name, price, description } = req.body;
+  const { name, price, category, SKU, description, weight, dimentions, colour, material } = req.body;
   const image = req.file ? req.file.filename : null;
-  const newProduct = await insertProduct(name, price, description, image);
+  const newProduct = await insertProduct(name, price, SKU, category, description, weight, dimentions, colour, material, image);
   return res.json(newProduct);
 };
 

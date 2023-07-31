@@ -6,7 +6,7 @@
               <span class="tab-text" @click="showTab('description')" :class="{ 'active-tab-text': activeTab === 'description' }">Description</span>
           </li>
           <li class="tab-item">
-              <span class="tab-text" :class="{ 'active-tab-text': activeTab === 'additional' }" @click="showTab('additional')">Aditional information</span>
+              <span class="tab-text" :class="{ 'active-tab-text': activeTab === 'characteristics' }" @click="showTab('characteristics')">Characteristics</span>
           </li>
           <li class="tab-item" >
               <span class="tab-text" @click="showTab('reviews')" :class="{ 'active-tab-text': activeTab === 'reviews'}">Reviews ({{reviews.length}})</span>
@@ -17,7 +17,9 @@
       <div v-if="description && activeTab === 'description'" class="description">
         {{ description }}
       </div>
-      <div v-else-if="activeTab === 'additional'" class="additional">Additional information content goes here</div>
+      <CharacteristicsTab 
+        v-else-if="activeTab === 'characteristics'"
+      />
       <ReviewSection 
         v-else-if="activeTab === 'reviews'" 
         :productName="productName"
@@ -27,9 +29,11 @@
 </template>
 
 <script lang="ts">
+  import { defineComponent } from 'vue';
   import ReviewSection from './ReviewSection.vue';
+  import CharacteristicsTab from './CharacteristicsTab.vue';
 
-  export default {
+  export default defineComponent({
     name: 'ProductTab',
     data(){
       return {
@@ -43,9 +47,10 @@
       }
     },
     components: {
-      ReviewSection
+      ReviewSection,
+      CharacteristicsTab
     },
-  };
+  });
 </script>
 
 <style scoped>
@@ -93,8 +98,7 @@
     cursor: not-allowed;
   }
   
-  .description, 
-  .additional {
+  .description {
     padding: 1rem 0;
   }
 </style>

@@ -47,7 +47,6 @@ export const useReviewStore = defineStore('productReview', {
           if(response.status === 200){
             this.message = 'Your review was added';
           }
-          console.log(response.status)
         } catch (error: any) {
           this.message =  error.message;
         }

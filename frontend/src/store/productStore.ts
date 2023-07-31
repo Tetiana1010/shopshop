@@ -4,20 +4,26 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:7777';
 
 interface Product {
-  id: number,
-  name: string;
-  price: number;
-  description: string;
-  image: {
+  id?: number,
+  name: string,
+  price: number,
+  SKU: string,
+  category: string,
+  description: string,
+  image?: {
     type: string;
     data: number[];
-   } | null;
+   } | null,
+  weight: number,
+  dimentions: string,
+  colour: string,
+  material: string
 }
 
 interface Products {
-  currentProduct: Product | null;
-  products: Product[];
-  filtered: Product[];
+  currentProduct: Product | null,
+  products: Product[],
+  filtered: Product[],
   message: any
 }
 
@@ -60,6 +66,28 @@ export const useProductStore = defineStore('productStore', {
         this.message = false;
       } catch (error: any) {
         this.message = error.message;
+      }
+    },
+    async addProduct(newProduct: Product){
+      try {
+        const response = await axios.post(`${API_BASE_URL}/products/new`, {
+          name: newProduct.name,
+          price: newProduct.price.toString(),
+          category: newProduct.category,
+          SKU: newProduct.SKU,
+          description: newProduct.description,
+          weight: Number(newProduct.weight),
+          dimentions: newProduct.dimentions,
+          colour: newProduct.colour,
+          material: newProduct.material,
+          image: newProduct.image
+        });
+        if(response.status === 200){
+          this.message = 'Your review was added';
+          this.fetchAllProducts()
+        }
+      } catch (error: any) {
+        this.message =  error.message;
       }
     },
     async deleteProductById(productId: number): Promise<void> {
