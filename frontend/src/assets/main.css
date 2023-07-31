@@ -166,7 +166,6 @@ button[type="submit"] {
   max-width: 400px;
 }
 
-
 .product-details {
   display: flex;
   flex-direction: column;
@@ -175,5 +174,10 @@ button[type="submit"] {
 
 .product-price {
   color: var(--light-colors-accent-light);
+}
+
+dialog {
+  grid-column: 1 / -1;
+  position: relative;
 }
 

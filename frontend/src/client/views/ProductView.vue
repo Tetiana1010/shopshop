@@ -22,6 +22,11 @@
 
   export default defineComponent({
     name: 'ProductView',
+    data(){
+      return {
+        id: Number(this.$route.params.id)
+      }
+    },
     computed: {
       ...mapState(useProductStore, ['currentProduct']),
       ...mapState(useReviewStore, ['reviews'])
@@ -31,15 +36,15 @@
       ...mapActions(useReviewStore, ['fetchReviewsById'])
     },
     mounted() {
-      this.fetchProductById(this.$route.params.id);
-      this.fetchReviewsById(this.$route.params.id);
+      this.fetchProductById(this.id);
+      this.fetchReviewsById(this.id);
     },
     created() {
       this.$watch(
         () => this.$route.params,
         () => {
-          this.fetchProductById(this.$route.params.id);
-          this.fetchReviewsById(this.$route.params.id);
+          this.fetchProductById(this.id);
+          this.fetchReviewsById(this.id);
         },
         { immediate: true }
       );

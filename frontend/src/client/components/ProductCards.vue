@@ -5,6 +5,9 @@
       :key="product.id"
       :product="product"
     />
+    <dialog :open="message">
+      {{ message }}
+    </dialog>
   </article>
 </template>
 
@@ -16,7 +19,7 @@ import { useProductStore } from '../../store/productStore';
 export default {
   name: 'ProductCards',
   computed: {
-    ...mapState(useProductStore, ['products', 'filtered']),
+    ...mapState(useProductStore, ['products', 'filtered', 'message']),
   },
   methods: {
     ...mapActions(useProductStore, ['fetchAllProducts']),

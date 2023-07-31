@@ -3,7 +3,7 @@
     <div class="product-promo-banner-text">
       <h1>Gold big hoops</h1>
       <h2>$ 68,00</h2>
-      <button class="white-bordered" @click="viewProject">
+      <button class="white-bordered">
         View project
       </button>
     </div>
@@ -29,7 +29,7 @@ interface Image {
 interface ImageStore {
   currentImage: Image | null,
   images: Image[],
-  timer: number,
+  timer:  any,
   currentIndex: number
 }
 

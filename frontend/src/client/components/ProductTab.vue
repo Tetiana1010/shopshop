@@ -27,15 +27,6 @@
 </template>
 
 <script lang="ts">
-  interface Review {
-    id: number;
-    product_id: number,
-    rating: number
-    review_text: string,
-    reviewer_name: string,
-    created_at: string
-  }
-
   import ReviewSection from './ReviewSection.vue';
 
   export default {
@@ -45,11 +36,7 @@
         activeTab: 'description',
       }
     },
-    props: {
-      reviews: Array as () => Review[],
-      description: String,
-      productName: String
-    },
+    props: ['reviews', 'description', 'productName'],
     methods: {
       showTab(tab: string) {
         this.activeTab = tab;

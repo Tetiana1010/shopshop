@@ -4,6 +4,7 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:7777';
 
 interface Product {
+  id: number,
   name: string;
   price: number;
   description: string;
@@ -17,10 +18,12 @@ interface Products {
   currentProduct: Product | null;
   products: Product[];
   filtered: Product[];
+  message: any
 }
 
 export const useProductStore = defineStore('productStore', {
   state: (): Products => ({
+    message: false,
     currentProduct: null,
     products: [],
     filtered: []
@@ -45,25 +48,26 @@ export const useProductStore = defineStore('productStore', {
         const response = await axios.get(`${API_BASE_URL}/products`);
         this.products = response.data;
         this.filtered = response.data;
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
+        this.message = false;
+      } catch (error: any) {
+        this.message = error.message;
       }
     },
     async fetchProductById(productId: number): Promise<void> {
       try {
         const responseProduct = await axios.get(`${API_BASE_URL}/products/${productId}`);
         this.currentProduct = responseProduct.data;
-        console.log('currentProduct:', this.currentProduct);
-      } catch (error) {
-        console.error(error);
+        this.message = false;
+      } catch (error: any) {
+        this.message = error.message;
       }
     },
     async deleteProductById(productId: number): Promise<void> {
       try {
         await axios.delete(`${API_BASE_URL}/products/${productId}`);
-      } catch (error) {
-        console.error(error);
+        this.message = false;
+      } catch (error: any) {
+        this.message = error.message;
       }
     },
   },

@@ -13,20 +13,9 @@
 import { defineComponent } from 'vue';
 import StarRating from './StarRating.vue';
 
-interface Review {
-  id: number,
-  product_id: number,
-  rating: number,
-  review_text: string,
-  reviewer_name: string,
-  created_at: string
-}
-
 export default defineComponent({
   name: 'ReviewItem',
-  props: {
-    review: Object as () => Review,
-  },
+  props: ['review'],
   components: {
     StarRating
   },

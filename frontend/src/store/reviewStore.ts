@@ -4,21 +4,24 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:7777';
 
 interface Review {
-  id: number;
-  product_id: number;
-  rating: number;
-  review_text: string;
-  reviewer_name: string;
+  id: number,
+  product_id: number,
+  review_text: string,
+  rating: number,
+  reviewer_name: string,
+  email: string,
+  save_email: boolean,
+  created_at?: string
 }
 
 interface ReviewTypes {
-  message: string | unknown,
+  message: any,
   reviews: Review[]
 }
 
 export const useReviewStore = defineStore('productReview', {
   state: (): ReviewTypes => ({
-    message: '',
+    message: false,
     reviews: [],
   }),
   actions: {
@@ -26,33 +29,27 @@ export const useReviewStore = defineStore('productReview', {
       try {
         const responseReviews = await axios.get(`${API_BASE_URL}/reviews/${productId}`);
         this.reviews = responseReviews.data;
-        console.log('responseReviews:', this.reviews);
-      } catch (error) {
-        console.error(error);
+        this.message = false;
+      } catch (error: any) {
+        this.message = error.message;
       }
     },
-    async addReview(
-      id: number,
-      reviewerName: string,
-      email: string,
-      reviewText: string,
-      rating: number,
-      saveEmail: boolean
-    ) {
+    async addReview(newReview: Review) {
         try {
           const response = await axios.post(`${API_BASE_URL}/reviews/new`, {
-            product_id: id,
-            reviewer_name: reviewerName,
-            email: email,
-            review_text: reviewText,
-            rating: rating,
-            save_email: Number(saveEmail)
+            product_id: newReview.product_id,
+            reviewer_name: newReview.reviewer_name,
+            email: newReview.email,
+            review_text: newReview.review_text,
+            rating: newReview.rating,
+            save_email: Number(newReview.save_email)
           });
-          this.message =  response.data;
-          console.log(response.data);
-        } catch (error) {
-          this.message =  error;
-          console.error('err', error);
+          if(response.status === 200){
+            this.message = 'Your review was added';
+          }
+          console.log(response.status)
+        } catch (error: any) {
+          this.message =  error.message;
         }
       },
   },

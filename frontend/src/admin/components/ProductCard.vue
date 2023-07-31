@@ -20,28 +20,9 @@
   import { mapActions } from 'pinia';
   import { useProductStore } from '../../store/productStore';
 
-  interface Product {
-    name: string;
-    price: number;
-    description: string;
-    image: {
-      type: string;
-      data: number[];
-    } | null;
-  }
-
   export default {
   name: 'ProductCard',
-  props: {
-    product: {
-      type: Object as () => Product,
-      required: true,
-    },
-    imageUrl: {
-      type: String,
-      default: '',
-    },
-  },
+  props: ['product', 'imageUrl'],
   methods: {
     ...mapActions(useProductStore, ['deleteProductById', 'formattedPrice']),
   },
