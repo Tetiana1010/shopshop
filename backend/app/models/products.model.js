@@ -15,9 +15,10 @@ export const getReviewsById = async (productId) => {
   return await executeQuery(query, [productId]);
 };
 
-export const insertProduct = async (name, price, description, image) => {
-  const query = `INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)`;
-  const values = [name, price, description, image];
+export const insertProduct = async (name, price, category, SKU, description, weight, dimentions, colour, material, image) => {
+  const query = `INSERT INTO products (name, price, category, SKU, description, weight, dimentions, colour, material, image) 
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [name, price, category, SKU, description, weight, dimentions, colour, material, image];
   return await executeQuery(query, values);
 };
 

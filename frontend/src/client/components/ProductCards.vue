@@ -13,10 +13,11 @@
 
 <script lang="ts">
 import ProductCard from './ProductCard.vue';
+import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
 import { useProductStore } from '../../store/productStore';
 
-export default {
+export default defineComponent({
   name: 'ProductCards',
   computed: {
     ...mapState(useProductStore, ['products', 'filtered', 'message']),
@@ -30,5 +31,5 @@ export default {
   components: {
     ProductCard,
   },
-};
+});
 </script>

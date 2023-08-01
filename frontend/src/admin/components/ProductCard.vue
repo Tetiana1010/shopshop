@@ -14,13 +14,14 @@
 </template>
 
 <script lang="ts">
-  import { RouterLink } from 'vue-router';
-  import ImageSkeleton from '../../common/components/ImageSkeleton.vue';
+import { defineComponent } from 'vue';
+import { RouterLink } from 'vue-router';
+import ImageSkeleton from '../../common/components/ImageSkeleton.vue';
 
-  import { mapActions } from 'pinia';
-  import { useProductStore } from '../../store/productStore';
+import { mapActions } from 'pinia';
+import { useProductStore } from '../../store/productStore';
 
-  export default {
+export default defineComponent({
   name: 'ProductCard',
   props: ['product', 'imageUrl'],
   methods: {
@@ -30,5 +31,5 @@
     RouterLink,
     ImageSkeleton
   }
-};
+})
 </script>

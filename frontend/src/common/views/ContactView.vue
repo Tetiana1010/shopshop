@@ -51,12 +51,11 @@
           formData.append('subject', this.subject);
           formData.append('message', this.message);
 
-          const response = await axios.post('http://localhost:7777/messages/new', formData, {
+          await axios.post('http://localhost:7777/messages/new', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
           });
-          console.log(response.data);
         } catch (error) {
           console.error(error);
         }

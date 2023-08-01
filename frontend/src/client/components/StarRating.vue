@@ -8,8 +8,10 @@
 </template>
 
 <script lang="ts">
+  import { defineComponent } from 'vue';
   import IconStar from '../../common/icons/IconStar.vue';
-  export default {
+
+  export default defineComponent({
     name: 'StarRating',
     props: {
       rating: {
@@ -20,7 +22,7 @@
     components: {
       IconStar
     }
-  }
+  });
 </script>
 
 <style>

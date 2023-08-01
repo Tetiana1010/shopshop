@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
 import axios from 'axios';
 
 interface Message {
@@ -26,7 +27,7 @@ interface Message {
   created_at: string,
 };
 
-export default {
+export default defineComponent({
   name: 'MessageList',
   data() {
     return {
@@ -37,7 +38,6 @@ export default {
     async fetchMessages() {
       try {
         const response = await axios.get('http://localhost:7777/messages');
-        console.log(response.data);
         this.messages = response.data;
       } catch (error) {
         console.error(error);
@@ -47,7 +47,7 @@ export default {
   mounted() {
     this.fetchMessages();
   },
-};
+});
 </script>
 
 <style scoped>

@@ -1,11 +1,8 @@
 <template>
   <div class="reviews-container">
-    <div class="product-reviews">
-      <h3>{{ reviewCountText }} for {{ productName }}</h3>
-      <ul class="review-list">
-        <ReviewItem v-for="review in reviews" :key="review.id" :review="review" />
-      </ul>
-    </div>
+    <ul class="review-list">
+      <ReviewItem v-for="review in reviews" :key="review.id" :review="review" />
+    </ul>
     <AddReview />
   </div>
 </template>
@@ -32,13 +29,7 @@ export default defineComponent({
   components: {
     ReviewItem,
     AddReview,
-  },
-  computed: {
-    reviewCountText(): string {
-      const count = this.reviews?.length;
-      return `${count} review${count !== 1 ? 's' : ''}`;
-    },
-  },
+  }
 });
 </script>
 <style>
@@ -56,12 +47,9 @@ export default defineComponent({
   }
 }
 
-.product-reviews {
+.review-list {
   display: flex;
   flex-direction: column;
-}
-
-.review-list {
   list-style: none;
   padding: 0;
 }
