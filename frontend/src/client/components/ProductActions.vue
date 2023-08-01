@@ -62,7 +62,7 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  background: var(--light-colors-light-gray-light);
+  background: var(--light-gray-light);
   padding: 0.6rem 1.5rem;
   flex-basis: calc(30% - 1.5rem);
 }

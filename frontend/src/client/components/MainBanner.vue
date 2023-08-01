@@ -90,7 +90,7 @@ export default defineComponent({
     align-items: center;
     height: 646px;
     background-position: right;
-    color: var(--light-colors-white-light, #FFF);
+    color: var(--white-light, #FFF);
     background-repeat: no-repeat;
     padding: 3rem;
   }
@@ -112,7 +112,7 @@ export default defineComponent({
     font-size: 1.4rem;
     padding: 1rem 2rem;
     border-radius: 6px;
-    color: var(--light-colors-white-light, #FFF);
+    color: var(--white-light, #FFF);
   }
   .dots {
     position: absolute;

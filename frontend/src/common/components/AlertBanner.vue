@@ -35,7 +35,7 @@ export default defineComponent({
     padding: 0 2rem;
     border-radius: 0.5rem;
     height: 100%;
-    background-color: var(--light-colors-light-gray-light);
+    background-color: var(--light-gray-light);
   }
   .alert-banner p {
     padding: 0 1rem;
