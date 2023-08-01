@@ -45,7 +45,7 @@ export default defineComponent({
 .product-details,
 .review-count,
 .review-description {
-  color: var(--light-colors-dark-gray-light);
+  color: var(--gray-light);
 }
 
 .product-review {

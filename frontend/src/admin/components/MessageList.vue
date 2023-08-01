@@ -1,6 +1,5 @@
 <template>
   <div class="message-list">
-    <h2>Messages</h2>
     <ul>
       <li v-for="message in messages" :key="message.id" class="message-item">
         <p><strong>Name:</strong> {{ message.firstName }} {{ message.lastName }}</p>

@@ -173,7 +173,7 @@ button[type="submit"] {
 }
 
 .product-price {
-  color: var(--light-colors-accent-light);
+  color: var(--accent-light);
 }
 
 dialog {

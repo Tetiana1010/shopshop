@@ -40,6 +40,6 @@
     gap: 0.5rem;
     padding: 0;
     list-style: none;
-    color: var(--light-colors-dark-gray-light);
+    color: var(--gray-light);
   }
 </style>

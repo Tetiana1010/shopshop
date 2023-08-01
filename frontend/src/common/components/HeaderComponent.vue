@@ -58,7 +58,7 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  color: var(--light-colors-black-light, #000);
+  color: var(--black-light, #000);
   font-size: 1rem;
   font-weight: 400;
   line-height: 27px;
