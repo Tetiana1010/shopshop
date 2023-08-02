@@ -1,4 +1,4 @@
-import { getAllProducts, getProductById, insertProduct, deleteProductById } from '../models/products.model.js';
+import { getAllProducts, getProductById, insertProduct, updateProduct, deleteProductById } from '../models/products.model.js';
 import { getAllContactMessages, insertMessage } from '../models/messages.model.js';
 import { getReviewsByProductId, insertReview } from '../models/reviews.model.js';
 
@@ -19,6 +19,15 @@ export const createProductController = async (req, res) => {
   const image = req.file ? req.file.filename : null;
   const newProduct = await insertProduct(name, price, SKU, category, description, weight, dimentions, colour, material, image);
   return res.json(newProduct);
+};
+
+export const updateProductController = async (req, res) => {
+  const { id } = req.params;
+  const { name, price, category, SKU, description, weight, dimentions, colour, material } = req.body;
+  const image = req.file ? req.file.filename : null;
+  
+  const updatedProduct = await updateProduct(id, name, price, category, SKU, description, weight, dimentions, colour, material, image);
+  return res.json(updatedProduct);
 };
 
 export const deleteProductController = async (req, res) => {

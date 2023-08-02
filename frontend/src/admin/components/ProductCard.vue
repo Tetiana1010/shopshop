@@ -10,10 +10,11 @@
       <button @click="deleteProductById(product.id)">
         <IconTrash />
       </button>
-      <button>
+      <button @click="toggleEdit()">
         <IconPencilSquare />
       </button>
     </div>
+    <EditProductModal v-if="edit" @edit-toggle="toggleEdit" :productId="product.id"/>
 </article>
 </template>
 
@@ -25,15 +26,26 @@ import { useProductStore } from '../../store/productStore';
 
 import ImageSkeleton from '../../common/components/ImageSkeleton.vue';
 import IconTrash from '../../common/icons/IconTrash.vue';
-import IconPencilSquare from '../../common/icons/IconPencilSquare.vue'
+import IconPencilSquare from '../../common/icons/IconPencilSquare.vue';
+import EditProductModal from './EditProductModal.vue';
+
 
 export default defineComponent({
   name: 'ProductCard',
+  data(){
+    return {
+      edit: false
+    }
+  },
   props: ['product', 'imageUrl'],
   methods: {
+    toggleEdit(){
+      this.edit = !this.edit;
+    },
     ...mapActions(useProductStore, ['deleteProductById', 'formattedPrice']),
   },
   components: {
+    EditProductModal,
     RouterLink,
     ImageSkeleton,
     IconTrash,
@@ -59,7 +71,7 @@ export default defineComponent({
     margin-top: auto;
   }
 
-.product-actions button:hover {
-  background-color: black;
-}
+  .product-actions button:hover {
+    background-color: black;
+  }
 </style>

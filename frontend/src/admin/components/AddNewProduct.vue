@@ -55,8 +55,8 @@
     SKU: '',
     description: '',
     weight: 1,
-    dimensions: '',
-    color: '',
+    dimentions: '',
+    colour:'',
     material: '',
   };
 
