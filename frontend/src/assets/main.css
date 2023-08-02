@@ -157,13 +157,18 @@ input[type="range"]::-moz-range-thumb {
   transition: .2s ease-in-out;
 }
 
-button[type="submit"] {
+button[type="submit"], button[type="reset"], .button-wrapper button  {
   background-color: black;
   color: white;
   padding: 0.8rem 2rem;
   border: none;
   border-radius: 0.5rem;
   max-width: 400px;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 1rem;
 }
 
 .product-details {

@@ -22,6 +22,15 @@ export const insertProduct = async (name, price, category, SKU, description, wei
   return await executeQuery(query, values);
 };
 
+export const updateProduct = async (id, name, price, category, SKU, description, weight, dimentions, colour, material, image) => {
+  const query = `UPDATE products 
+  SET name = ?, price = ?, category = ?, SKU = ?, description = ?, weight = ?, dimentions = ?, colour = ?, material = ?, image = ? 
+  WHERE id = ${id}`;
+
+  const values = [name, price, category, SKU, description, weight, dimentions, colour, material, image, id];
+  return await executeQuery(query, values);
+};
+
 export const deleteProductById = async (productId) => {
   const query = `DELETE FROM products WHERE id = ?`;
   return await executeQuery(query, [productId]);

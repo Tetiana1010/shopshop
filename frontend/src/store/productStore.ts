@@ -90,6 +90,28 @@ export const useProductStore = defineStore('productStore', {
         this.message =  error.message;
       }
     },
+    async updateProductById(productId: number, updatedProduct: Product){
+      try {
+        const response = await axios.put(`${API_BASE_URL}/products/update/${productId}`, {
+          name: updatedProduct.name,
+          price: updatedProduct.price.toString(),
+          category: updatedProduct.category,
+          SKU: updatedProduct.SKU,
+          description: updatedProduct.description,
+          weight: Number(updatedProduct.weight),
+          dimentions: updatedProduct.dimentions,
+          colour: updatedProduct.colour,
+          material: updatedProduct.material,
+          image: updatedProduct.image
+        });
+        if(response.status === 200){
+          this.message = 'Your review was added';
+          this.fetchAllProducts()
+        }
+      } catch (error: any) {
+        this.message =  error.message;
+      }
+    },
     async deleteProductById(productId: number): Promise<void> {
       try {
         await axios.delete(`${API_BASE_URL}/products/${productId}`);
