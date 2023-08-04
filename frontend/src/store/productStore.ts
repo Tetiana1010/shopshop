@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia';
+import { ref, listAll, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase';
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:7777';
@@ -10,10 +12,7 @@ interface Product {
   SKU: string,
   category: string,
   description: string,
-  image?: {
-    type: string;
-    data: number[];
-   } | null,
+  imageURLs?: any,
   weight: number,
   dimentions: string,
   colour: string,
@@ -49,11 +48,32 @@ export const useProductStore = defineStore('productStore', {
     formattedPrice(price: number): string {
       return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
     },
+    async fetchImageURLs(imageListRef: any) {
+      try {
+        const response = await listAll(imageListRef);
+
+        const imagePromises = response.items.map(item => {
+          return getDownloadURL(item);
+        });
+
+        const urls = await Promise.all(imagePromises);
+
+        return urls;
+      } catch (error: any) {
+        console.error('Error getting image URLs:', error);
+      }
+    },
     async fetchAllProducts(): Promise<void> {
       try {
         const response = await axios.get(`${API_BASE_URL}/products`);
-        this.products = response.data;
-        this.filtered = response.data;
+        const prod = await Promise.all(
+          response.data.map(async (item: any) => {
+            const imageList = await this.fetchImageURLs(ref(storage, `images/${item.id}`));
+            return { ...item, imageURLs: imageList };
+          })
+        );
+        this.products = prod;
+        this.filtered = prod;
         this.message = false;
       } catch (error: any) {
         this.message = error.message;
@@ -61,8 +81,9 @@ export const useProductStore = defineStore('productStore', {
     },
     async fetchProductById(productId: number): Promise<void> {
       try {
+        const imageList = await this.fetchImageURLs(ref(storage, `images/${productId}`));
         const responseProduct = await axios.get(`${API_BASE_URL}/products/${productId}`);
-        this.currentProduct = responseProduct.data;
+        this.currentProduct = {...responseProduct.data, imageURLs: imageList};
         this.message = false;
       } catch (error: any) {
         this.message = error.message;
@@ -80,12 +101,12 @@ export const useProductStore = defineStore('productStore', {
           dimentions: newProduct.dimentions,
           colour: newProduct.colour,
           material: newProduct.material,
-          image: newProduct.image
         });
         if(response.status === 200){
           this.message = 'Your review was added';
           this.fetchAllProducts()
         }
+        return response.data;
       } catch (error: any) {
         this.message =  error.message;
       }
@@ -101,8 +122,7 @@ export const useProductStore = defineStore('productStore', {
           weight: Number(updatedProduct.weight),
           dimentions: updatedProduct.dimentions,
           colour: updatedProduct.colour,
-          material: updatedProduct.material,
-          image: updatedProduct.image
+          material: updatedProduct.material
         });
         if(response.status === 200){
           this.message = 'Your review was added';

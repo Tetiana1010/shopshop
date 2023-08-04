@@ -9,7 +9,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import SearchBar from '../components/SearchBar.vue';
-  import ProductCards from '../components/ProductCards.vue'
+  import ProductCards from '../components/ProductCards.vue';
+  
   export default defineComponent({
     name: 'ShopView',
     components: {

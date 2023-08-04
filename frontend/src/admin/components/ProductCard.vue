@@ -1,6 +1,6 @@
 <template>
   <article class="product-card">
-    <div v-if="product.imagerURL" :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" class="bg-image" />
+    <img v-if="product.imageURLs.length" :src="product.imageURLs[0]" />
     <ImageSkeleton v-else /> 
     <RouterLink :to="'/shop/' + product.id">
       <h3 class="product-title">{{product.name}}</h3>
@@ -29,17 +29,17 @@ import IconTrash from '../../common/icons/IconTrash.vue';
 import IconPencilSquare from '../../common/icons/IconPencilSquare.vue';
 import EditProductModal from './EditProductModal.vue';
 
-
 export default defineComponent({
   name: 'ProductCard',
   data(){
     return {
-      edit: false
+      edit: false,
     }
   },
-  props: ['product', 'imageUrl'],
+  props: ['product'],
   methods: {
     toggleEdit(){
+      console.log('editToggle')
       this.edit = !this.edit;
     },
     ...mapActions(useProductStore, ['deleteProductById', 'formattedPrice']),
@@ -73,5 +73,6 @@ export default defineComponent({
 
   .product-actions button:hover {
     background-color: black;
+    color: white;
   }
 </style>
