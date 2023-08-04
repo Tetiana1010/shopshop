@@ -16,16 +16,10 @@ router.get('/:id', getProductByIdController);
 
 router.delete('/:id', deleteProductController);
 
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage });
+const upload = multer();
     
-router.post('/new', upload.single('image'), createProductController);
+router.post('/new', upload.none(), createProductController);
 
-router.put('/update/:id', upload.single('image'), updateProductController);
+router.put('/update/:id', upload.none(), updateProductController);
 
 export default router;
