@@ -10,6 +10,10 @@
           <legend>Basic Information</legend>
           <input v-model="formData.name" type="text" placeholder="Product Name" required />
           <textarea v-model="formData.description" placeholder="Product Description" rows="4" required></textarea>
+          <div class="image-upload">
+            <input id="product-image" @change="onFileSeleted" type="file" accept="image/*" />
+            <img v-if="imageUrl || formData.imageURLs" :src="imageUrl || formData.imageURLs" />
+          </div>
         </fieldset>
         <fieldset>
           <legend>Product Details</legend>
@@ -36,14 +40,36 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapState, mapActions } from 'pinia';
+import { storage } from '../../firebase';
+import { ref, uploadBytes } from 'firebase/storage';
 import { useProductStore } from '../../store/productStore';
-
 import IconClose from '../../common/icons/IconClose.vue';
+
+  interface FormData {
+    name: string,
+    price: number,
+    category: string,
+    SKU: string,
+    description: string,
+    weight: number,
+    dimentions: string,
+    colour: string,
+    material: string,
+    imageURLs: any
+  };
+
+  interface EditProduct {
+    selectedFile: any,
+    imageUrl: string | null,
+    formData: FormData
+  }
 
 export default defineComponent({
   name: 'EditProductModal',
-  data() {
+  data(): EditProduct {
     return {
+      selectedFile: null,
+      imageUrl: null,
       formData: {
         name: '',
         price: 0,
@@ -53,7 +79,8 @@ export default defineComponent({
         weight: 0,
         dimentions: '',
         colour: '',
-        material: ''
+        material: '',
+        imageURLs: [],
       }
     };
   },
@@ -63,18 +90,31 @@ export default defineComponent({
     ...mapState(useProductStore, ['currentProduct']),
   },
   methods: {
-    ...mapActions(useProductStore, ['fetchProductById', 'updateProductById']),
+    onFileSeleted(event: any){
+      this.selectedFile = event.target.files[0];
+      if (this.selectedFile) {
+        this.imageUrl = URL.createObjectURL(this.selectedFile);
+      }
+    },
+    async onUpload(){
+      if(this.selectedFile === null) return;
+      const imageRef = ref(storage, `images/${this.productId}/${this.selectedFile.name}`);
+      await uploadBytes(imageRef, this.selectedFile).then((data) => {
+        this.formData.imageURLs = data.metadata.fullPath;
+      });
+    },
     resetForm() {
       Object.assign(this.formData, this.currentProduct);
     },
     async handleSubmit() {
+      await this.onUpload();
       await this.updateProductById(this.productId, this.formData);
       this.$emit('editToggle');
-    }
+    },
+    ...mapActions(useProductStore, ['fetchProductById', 'updateProductById']),
   },
   async mounted() {
-    await this.fetchProductById(this.productId);
-    this.resetForm();
+    await this.fetchProductById(this.productId).then(() => this.resetForm());
   },
   created() {
     this.$watch(
@@ -95,7 +135,7 @@ export default defineComponent({
 .modal {
   position: fixed;
   inset: 0;
-  padding: 2rem;
+  padding: 1.5rem;
   z-index: 40; 
 }
 
@@ -113,7 +153,7 @@ export default defineComponent({
   align-items: center;
   flex-wrap: wrap;
   background-color: white;
-  padding: 2rem;
+  padding: 1.5rem;
   gap: 1.5rem;
   border-radius: 0.5rem;
   max-width: 1280px;

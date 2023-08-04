@@ -1,12 +1,12 @@
 <template>
   <article class="product-card">
-    <div v-if="product.imagerURL" :style="{ 'background-image': 'url(' + product.imagerURL + ')' }" class="bg-image"/>
+    <img v-if="product.imageURLs.length" :src="product.imageURLs[0]"/>
     <ImageSkeleton v-else /> 
-      <h3 class="product-title">
-        <RouterLink :to="'/shop/' + product.id">
-          {{product.name}}
-        </RouterLink>
-      </h3>
+    <h3 class="product-title">
+      <RouterLink :to="'/shop/' + product.id">
+        {{product.name}}
+      </RouterLink>
+    </h3>
     <h4 v-if="product.price" class="product-price">{{ formattedPrice(product.price) }}</h4>
   </article>
 </template>
@@ -19,7 +19,7 @@
 
   export default {
     name: 'ProductCard',
-    props: ['product', 'imageUrl'],
+    props: ['product'],
     methods: {
       ...mapActions(useProductStore, ['formattedPrice']),
     },

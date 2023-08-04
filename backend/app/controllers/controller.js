@@ -16,17 +16,15 @@ export const getProductByIdController = async (req, res) => {
 
 export const createProductController = async (req, res) => {
   const { name, price, category, SKU, description, weight, dimentions, colour, material } = req.body;
-  const image = req.file ? req.file.filename : null;
-  const newProduct = await insertProduct(name, price, SKU, category, description, weight, dimentions, colour, material, image);
+  const newProduct = await insertProduct(name, price, SKU, category, description, weight, dimentions, colour, material);
   return res.json(newProduct);
 };
 
 export const updateProductController = async (req, res) => {
   const { id } = req.params;
   const { name, price, category, SKU, description, weight, dimentions, colour, material } = req.body;
-  const image = req.file ? req.file.filename : null;
   
-  const updatedProduct = await updateProduct(id, name, price, category, SKU, description, weight, dimentions, colour, material, image);
+  const updatedProduct = await updateProduct(id, name, price, category, SKU, description, weight, dimentions, colour, material);
   return res.json(updatedProduct);
 };
 

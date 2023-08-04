@@ -1,6 +1,9 @@
 <template>
   <main class="product-view">
-    <ImageSkeleton />
+    <div v-if="currentProduct !== null && currentProduct.imageURLs.length" class="img-gallery">
+      <img :src="currentProduct.imageURLs[0]" />
+    </div>
+    <ImageSkeleton v-else/>
     <div class="product-wrapper">
       <ProductDetails v-if="currentProduct !== null" :currentProduct="currentProduct" :reviews="reviews" />
       <ProductActions v-if="currentProduct !== null" />
@@ -11,7 +14,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapState, mapActions } from 'pinia'; 
+  import { mapState, mapActions } from 'pinia';
   import { useProductStore } from '../../store/productStore';
   import { useReviewStore } from '../../store/reviewStore';
   
@@ -59,7 +62,7 @@
 </script>
 
 <style scoped>
-  .product-wrapper {
+  .product-wrapper, .img-gallery {
     grid-column: 6 span;
     display: flex;
     flex-direction: column;
