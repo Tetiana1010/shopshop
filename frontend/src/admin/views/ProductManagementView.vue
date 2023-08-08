@@ -2,18 +2,23 @@
   <main>
     <h1>Product Management</h1>
     <AddNewProduct />
+    <AlertBanner />
     <ProductCards />
   </main>
 </template>
 
 <script lang="ts">
+  import { defineComponent } from 'vue'
   import ProductCards from '../components/ProductCards.vue';
   import AddNewProduct from '../components/AddNewProduct.vue';
- export default {
-  name: 'ProductManagementView',
-  components: {
-    AddNewProduct,
-    ProductCards,
-  }
-};
+  import AlertBanner from '../../common/components/AlertBanner.vue';
+
+  export default defineComponent({
+    name: 'ProductManagementView',
+    components: {
+      AddNewProduct,
+      ProductCards,
+      AlertBanner
+    }
+  });
 </script>

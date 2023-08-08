@@ -163,9 +163,4 @@ export default defineComponent({
 .modal form {
   flex-basis: 100%;
 }
-
-.x-button {
-  background: none;
-  border: none;
-}
 </style>

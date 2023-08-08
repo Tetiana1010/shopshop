@@ -3,6 +3,9 @@ import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase';
 import axios from 'axios';
 
+import { useAlertStore } from './alertStore';
+import { mapActions } from 'pinia';
+
 const API_BASE_URL = 'http://localhost:7777';
 
 interface Product {
@@ -23,17 +26,16 @@ interface Products {
   currentProduct: Product | null,
   products: Product[],
   filtered: Product[],
-  message: any
 }
 
 export const useProductStore = defineStore('productStore', {
   state: (): Products => ({
-    message: false,
     currentProduct: null,
     products: [],
     filtered: []
   }),
   actions: {
+    ...mapActions(useAlertStore, ['setAlert', 'clearAlert']),
     filterProducts(query: string, price: number){
       if (!query) {
         this.filtered = this.products;
@@ -64,6 +66,7 @@ export const useProductStore = defineStore('productStore', {
       }
     },
     async fetchAllProducts(): Promise<void> {
+      this.setAlert('loading', 'success');
       try {
         const response = await axios.get(`${API_BASE_URL}/products`);
         const prod = await Promise.all(
@@ -74,22 +77,28 @@ export const useProductStore = defineStore('productStore', {
         );
         this.products = prod;
         this.filtered = prod;
-        this.message = false;
+        this.setAlert('fetched', 'success');
       } catch (error: any) {
-        this.message = error.message;
+        this.setAlert('something went wrong', 'error');
+      } finally {
+        this.clearAlert();
       }
     },
     async fetchProductById(productId: number): Promise<void> {
+      this.setAlert('loading', 'success');
       try {
         const imageList = await this.fetchImageURLs(ref(storage, `images/${productId}`));
         const responseProduct = await axios.get(`${API_BASE_URL}/products/${productId}`);
         this.currentProduct = {...responseProduct.data, imageURLs: imageList};
-        this.message = false;
+        this.setAlert('fetched', 'success');
       } catch (error: any) {
-        this.message = error.message;
+        this.setAlert('something went wrong', 'error');
+      } finally {
+        this.clearAlert();
       }
     },
     async addProduct(newProduct: Product){
+      this.setAlert('loading', 'success');
       try {
         const response = await axios.post(`${API_BASE_URL}/products/new`, {
           name: newProduct.name,
@@ -103,15 +112,18 @@ export const useProductStore = defineStore('productStore', {
           material: newProduct.material,
         });
         if(response.status === 200){
-          this.message = 'Your review was added';
+          this.setAlert('product added', 'success');
           this.fetchAllProducts()
         }
         return response.data;
       } catch (error: any) {
-        this.message =  error.message;
+        this.setAlert('something went wrong', 'error');
+      } finally {
+        this.clearAlert();
       }
     },
     async updateProductById(productId: number, updatedProduct: Product){
+      this.setAlert('loading', 'success');
       try {
         const response = await axios.put(`${API_BASE_URL}/products/update/${productId}`, {
           name: updatedProduct.name,
@@ -125,19 +137,25 @@ export const useProductStore = defineStore('productStore', {
           material: updatedProduct.material
         });
         if(response.status === 200){
-          this.message = 'Your review was added';
+          this.setAlert('product updated', 'success');
           this.fetchAllProducts()
         }
       } catch (error: any) {
-        this.message =  error.message;
+        this.setAlert('something went wrong', 'error');
+      } finally {
+        this.clearAlert();
       }
     },
     async deleteProductById(productId: number): Promise<void> {
       try {
-        await axios.delete(`${API_BASE_URL}/products/${productId}`);
-        this.message = false;
+        const responce = await axios.delete(`${API_BASE_URL}/products/${productId}`);
+        console.log('hjs')
+        this.setAlert(responce.data.message, 'success');
+        this.fetchAllProducts()
       } catch (error: any) {
-        this.message = error.message;
+        this.setAlert('Something went wrong. Unable to delete product.', 'error');
+      } finally {
+        this.clearAlert();
       }
     },
   },

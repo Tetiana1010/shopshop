@@ -31,7 +31,22 @@ export const updateProduct = async (id, name, price, category, SKU, description,
   return await executeQuery(query, values);
 };
 
+
 export const deleteProductById = async (productId) => {
-  const query = `DELETE FROM products WHERE id = ?`;
-  return await executeQuery(query, [productId]);
+  try {
+    const deleteReviewsQuery = `DELETE FROM reviews WHERE product_id = ?`;
+    await executeQuery(deleteReviewsQuery, [productId]);
+
+    const deleteProductQuery = `DELETE FROM products WHERE id = ?`;
+    const result = await executeQuery(deleteProductQuery, [productId]);
+
+    if (result.affectedRows === 1) {
+      return { success: true, message: 'Product deleted successfully.' };
+    } else {
+      return { success: false, message: 'Product with the specified ID not found.' };
+    }
+  } catch (error) {
+    return { success: false, message: 'An error occurred while deleting the product.', error };
+  }
 };
+
