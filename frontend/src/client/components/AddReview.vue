@@ -59,6 +59,14 @@ export default defineComponent({
         ...this.formData, 
         product_id: this.product_id
       });
+
+      this.formData = {
+        reviewer_name: '',
+        email: '',
+        review_text: '',
+        save_email: false,
+        rating: 0,
+      };
     },
     ...mapActions(useReviewStore, ['addReview'])
   },

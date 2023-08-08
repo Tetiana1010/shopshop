@@ -18,6 +18,7 @@
   import { useProductStore } from '../../store/productStore';
   import { useReviewStore } from '../../store/reviewStore';
   
+  import AlertBanner from '../../common/components/AlertBanner.vue';
   import ProductDetails from '../components/ProductDetails.vue';
   import ProductActions from '../components/ProductActions.vue';
   import ProductTab from '../components/ProductTab.vue';
@@ -53,6 +54,7 @@
       );
     },
     components: {
+      AlertBanner,
       ImageSkeleton,
       ProductDetails,
       ProductActions,

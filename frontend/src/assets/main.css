@@ -225,3 +225,8 @@ bdi {
   width: 60px;
   border-radius: 0.5rem;
 }
+
+.x-button {
+  background: none;
+  border: none;
+}

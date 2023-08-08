@@ -32,6 +32,10 @@ export const updateProduct = async (id, name, price, category, SKU, description,
 };
 
 export const deleteProductById = async (productId) => {
-  const query = `DELETE FROM products WHERE id = ?`;
-  return await executeQuery(query, [productId]);
+  const deleteReviewsQuery = `DELETE FROM reviews WHERE product_id = ?`;
+  await executeQuery(deleteReviewsQuery, [productId]);
+
+  const deleteProductQuery = `DELETE FROM products WHERE id = ?`;
+  return await executeQuery(deleteProductQuery, [productId]);
 };
+

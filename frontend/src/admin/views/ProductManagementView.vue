@@ -7,13 +7,15 @@
 </template>
 
 <script lang="ts">
+  import { defineComponent } from 'vue'
   import ProductCards from '../components/ProductCards.vue';
   import AddNewProduct from '../components/AddNewProduct.vue';
- export default {
-  name: 'ProductManagementView',
-  components: {
-    AddNewProduct,
-    ProductCards,
-  }
-};
+
+  export default defineComponent({
+    name: 'ProductManagementView',
+    components: {
+      AddNewProduct,
+      ProductCards,
+    }
+  });
 </script>
