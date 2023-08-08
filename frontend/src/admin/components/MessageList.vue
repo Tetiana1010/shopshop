@@ -14,34 +14,16 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import axios from 'axios';
-
-interface Message {
-  id: number,
-  firstName: string,
-  lastName: string,
-  email: string,
-  subject: string,
-  message: string,
-  created_at: string,
-};
+import { mapState, mapActions } from 'pinia';
+import { useMessageStore } from '../../store/messageStore';
 
 export default defineComponent({
   name: 'MessageList',
-  data() {
-    return {
-      messages: [] as Message[],
-    };
+  computed: {
+    ...mapState(useMessageStore, ['messages'])
   },
   methods: {
-    async fetchMessages() {
-      try {
-        const response = await axios.get('http://localhost:7777/messages');
-        this.messages = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    ...mapActions(useMessageStore, ['fetchMessages'])
   },
   mounted() {
     this.fetchMessages();

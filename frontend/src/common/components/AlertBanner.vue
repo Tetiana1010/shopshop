@@ -1,6 +1,6 @@
 <template>
-  <div class="alert-container">
-    <div v-if="alert.message" :class="`alert ${alert.type}`">
+  <div class="alert-container" v-if="alert.message">
+    <div :class="`alert ${alert.type}`">
       <IconsSuccess />
       <p>{{ alert.message }}</p>
       <button class="x-button" @click="removeAlert(alert)">
@@ -33,8 +33,9 @@ export default defineComponent({
 .alert-container {
   position: fixed;
   height: 2rem;
-  inset: 2rem 2rem 2rem;
+  inset: auto 2rem;
   max-width: 1280px;
+  z-index: 400;
 }
 
 .alert {

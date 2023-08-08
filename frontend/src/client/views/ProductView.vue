@@ -1,6 +1,5 @@
 <template>
   <main class="product-view">
-    <AlertBanner />
     <div v-if="currentProduct !== null && currentProduct.imageURLs.length" class="img-gallery">
       <img :src="currentProduct.imageURLs[0]" />
     </div>
